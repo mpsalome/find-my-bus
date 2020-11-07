@@ -34,6 +34,6 @@ export default {
 }
 div.container {
   padding-top: 7vh;
-  padding-left: 55px;
+  padding-left: 58px;
 }
 </style>

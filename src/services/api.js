@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = "//api.olhovivo.sptrans.com.br/v2.1";
+const URL = "http://api.olhovivo.sptrans.com.br/v2.1";
 
 export default {
   async getBus(searchTerm) {

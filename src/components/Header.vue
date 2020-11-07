@@ -19,13 +19,13 @@ export default {
           icon: "fa fa-home"
         },
         {
-          href: "/onibus",
-          title: "Encontrar Ônibus",
+          href: "/bus",
+          title: "Pesquisar Linha",
           icon: "fa fa-bus"
         },
         {
-          href: "/ponto",
-          title: "Encontrar Ponto",
+          href: "/bus-stop",
+          title: "Pesquisar Parada",
           icon: "fa fa-map-marker-alt"
         }
       ]

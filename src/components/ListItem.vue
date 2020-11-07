@@ -28,10 +28,9 @@ export default {
   padding: 10px;
   .icon {
     font-size: 20px;
-    }
   }
-  p{
-   color: #595959
+  p {
+    color: #595959;
   }
   &:hover {
     background-color: #b0b0b0;

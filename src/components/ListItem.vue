@@ -1,9 +1,18 @@
 <template>
-  <div class="list-item">
-    <i v-if="type === 'bus'" class="fas fa-bus icon bus"></i>
-    <i v-else class="fas fa-map-marker-alt icon bus-stop"></i>
-    <strong>{{ title }}</strong>
-    <p>{{ text }}</p>
+  <div v-if="type === 'bus'">
+    <div class="list-item">
+      <i class="fas fa-bus icon"></i>
+      <strong
+        >{{ item.displaySign }}-{{ item.direction }}
+        {{ item.mainTerminal }}</strong
+      >
+      <p>{{ item.secondaryTerminal }}</p>
+    </div>
+  </div>
+  <div v-else>
+    <i class="fas fa-map-marker-alt icon "></i>
+    <strong>{{ item.name }}</strong>
+    <p>{{ item.address }}</p>
   </div>
 </template>
 
@@ -11,9 +20,8 @@
 export default {
   name: "ListItem",
   props: {
-    type: String,
-    title: String,
-    text: String
+    item: {},
+    type: String
   },
   components: {},
   data() {

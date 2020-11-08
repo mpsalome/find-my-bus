@@ -9,8 +9,11 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "@babel/runtime": "^7.12.5",
     "@fortawesome/fontawesome-free": "^5.15.1",
+    "babel-runtime": "^6.26.0",
     "buefy": "^0.9.4",
+    "bus-promise": "^1.1.7",
     "core-js": "^3.6.5",
     "express": "^4.17.1",
     "vue": "^2.6.11",

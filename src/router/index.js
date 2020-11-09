@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import SearchPage from "../views/SearchPage.vue";
+import DetailPage from "../views/DetailPage.vue";
 
 Vue.use(VueRouter);
 
@@ -20,6 +21,11 @@ const routes = [
     path: "/bus-stop",
     name: "BusStop",
     component: SearchPage
+  },
+  {
+    path: "/detail/:type",
+    name: "DetailPage",
+    component: DetailPage
   }
 ];
 

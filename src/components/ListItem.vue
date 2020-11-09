@@ -1,15 +1,14 @@
 <template>
-  <div v-if="type === 'bus'">
-    <div class="list-item">
-      <i class="fas fa-bus icon"></i>
-      <strong
-        >{{ item.displaySign }}-{{ item.direction }}
-        {{ item.mainTerminal }}</strong
-      >
-      <p>{{ item.secondaryTerminal }}</p>
-    </div>
+  <div class="list-item" v-if="type === 'bus'" @click="$emit('click')">
+    <i class="fas fa-bus icon"></i>
+    <strong
+      >{{ item.displaySign }}
+      {{
+        item.direction === 1 ? item.mainTerminal : item.secondaryTerminal
+      }}</strong
+    >
   </div>
-  <div v-else>
+  <div class="list-item" v-else @click="$emit('click')">
     <i class="fas fa-map-marker-alt icon "></i>
     <strong>{{ item.name }}</strong>
     <p>{{ item.address }}</p>
@@ -34,6 +33,9 @@ export default {
   border-bottom: 1px solid #b0b0b0;
   height: 70px;
   padding: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   .icon {
     font-size: 20px;
   }
@@ -42,6 +44,7 @@ export default {
   }
   &:hover {
     background-color: #b0b0b0;
+    cursor: pointer;
   }
 }
 </style>

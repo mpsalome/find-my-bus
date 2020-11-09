@@ -27,6 +27,7 @@
         :key="index"
         :item="item"
         :type="type"
+        @click="goTo(item)"
       />
       <b-loading
         :is-full-page="true"
@@ -40,11 +41,20 @@
 <script>
 import ListItem from "@/components/ListItem";
 import * as bus from "bus-promise";
+import { mapActions } from "vuex";
 
 export default {
   name: "SearchPage",
   components: {
     ListItem
+  },
+  computed: {
+    bus() {
+      return this.$store.state.bus;
+    },
+    busStop() {
+      return this.$store.state.busStop;
+    }
   },
   data() {
     return {
@@ -55,11 +65,21 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["setBus", "setBusStop"]),
     search() {
       this.isLoading = true;
       bus
         .auth(`${process.env.VUE_APP_TOKEN}`)
         .then(this.$route.name === "Bus" ? this.getLines : this.getStops);
+    },
+    goTo(item) {
+      console.log(this.type);
+      this.type === "bus" ? this.setBus(item) : this.setBusStop(item);
+      this.$router.push({
+        name: "DetailPage",
+        params: { type: this.type }
+      });
+      console.log(item);
     },
     getLines(auth) {
       this.type = "bus";
@@ -72,6 +92,10 @@ export default {
         .then(res => {
           this.result = res;
           console.log(res);
+          this.isLoading = false;
+        })
+        .catch(error => {
+          this.showError(error);
           this.isLoading = false;
         });
     },
@@ -87,7 +111,18 @@ export default {
           this.result = res;
           console.log(res);
           this.isLoading = false;
+        })
+        .catch(error => {
+          this.showError(error);
+          this.isLoading = false;
         });
+    },
+    showError(message) {
+      this.$buefy.toast.open({
+        duration: 5000,
+        message: `Erro: ${message}`,
+        type: "is-danger"
+      });
     }
   }
 };

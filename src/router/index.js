@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import SearchPage from "../views/SearchPage.vue";
-import DetailPage from "../views/DetailPage.vue";
+import EstimatePage from "../views/EstimatePage.vue";
 
 Vue.use(VueRouter);
 
@@ -23,9 +23,9 @@ const routes = [
     component: SearchPage
   },
   {
-    path: "/detail/:type",
-    name: "DetailPage",
-    component: DetailPage
+    path: "/estimate",
+    name: "EstimatePage",
+    component: EstimatePage
   }
 ];
 

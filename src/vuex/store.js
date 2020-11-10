@@ -21,7 +21,7 @@ export default new Vuex.Store({
       commit("SET_BUS", obj);
     },
     setBusStop({ commit }, obj) {
-      commit("SET_BUS", obj);
+      commit("SET_BUS_STOP", obj);
     }
   }
 });

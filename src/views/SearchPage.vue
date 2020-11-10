@@ -40,7 +40,7 @@
 
 <script>
 import ListItem from "@/components/ListItem";
-import * as bus from "bus-promise";
+import * as busPromise from "bus-promise";
 import { mapActions } from "vuex";
 
 export default {
@@ -68,22 +68,41 @@ export default {
     ...mapActions(["setBus", "setBusStop"]),
     search() {
       this.isLoading = true;
-      bus
+      busPromise
         .auth(`${process.env.VUE_APP_TOKEN}`)
-        .then(this.$route.name === "Bus" ? this.getLines : this.getStops);
+        .then(this.$route.name === "Bus" ? this.getLines : this.getStops)
+        .catch(error => {
+          this.showToast(`Erro: ${error}`, "is-danger");
+          this.isLoading = false;
+        });
     },
     goTo(item) {
-      console.log(this.type);
-      this.type === "bus" ? this.setBus(item) : this.setBusStop(item);
-      this.$router.push({
-        name: "DetailPage",
-        params: { type: this.type }
-      });
-      console.log(item);
+      if (
+        JSON.stringify(this.bus) !== "{}" &&
+        JSON.stringify(this.busStop) !== "{}"
+      ) {
+        this.$router.push({
+          name: "EstimatePage"
+        });
+      } else {
+        if (this.type === "bus") {
+          this.setBus(item);
+          this.$router.push({
+            name: "BusStop",
+            params: { type: this.type }
+          });
+        } else {
+          this.setBusStop(item);
+          this.$router.push({
+            name: "Bus",
+            params: { type: this.type }
+          });
+        }
+      }
     },
     getLines(auth) {
       this.type = "bus";
-      bus
+      busPromise
         .find({
           auth,
           type: "lines",
@@ -91,7 +110,6 @@ export default {
         })
         .then(res => {
           this.result = res;
-          console.log(res);
           this.isLoading = false;
           if (res.length === 0) {
             this.showToast(`Nenhum resultado encontrado!`, `is-warning`);
@@ -104,7 +122,7 @@ export default {
     },
     getStops(auth) {
       this.type = "stop";
-      bus
+      busPromise
         .find({
           auth,
           type: "stops",
@@ -112,7 +130,6 @@ export default {
         })
         .then(res => {
           this.result = res;
-          console.log(res);
           this.isLoading = false;
           if (res.length === 0) {
             this.showToast(`Nenhum resultado encontrado!`, `is-warning`);

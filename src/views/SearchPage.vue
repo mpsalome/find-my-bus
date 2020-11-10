@@ -64,6 +64,14 @@ export default {
       isLoading: false
     };
   },
+  mounted() {
+    this.clearScreen();
+  },
+  watch: {
+    $route() {
+      this.clearScreen();
+    }
+  },
   methods: {
     ...mapActions(["setBus", "setBusStop"]),
     search() {
@@ -77,6 +85,19 @@ export default {
         });
     },
     goTo(item) {
+      if (this.type === "bus") {
+        this.setBus(item);
+        this.$router.push({
+          name: "BusStop",
+          params: { type: this.type }
+        });
+      } else {
+        this.setBusStop(item);
+        this.$router.push({
+          name: "Bus",
+          params: { type: this.type }
+        });
+      }
       if (
         JSON.stringify(this.bus) !== "{}" &&
         JSON.stringify(this.busStop) !== "{}"
@@ -84,20 +105,6 @@ export default {
         this.$router.push({
           name: "EstimatePage"
         });
-      } else {
-        if (this.type === "bus") {
-          this.setBus(item);
-          this.$router.push({
-            name: "BusStop",
-            params: { type: this.type }
-          });
-        } else {
-          this.setBusStop(item);
-          this.$router.push({
-            name: "Bus",
-            params: { type: this.type }
-          });
-        }
       }
     },
     getLines(auth) {
@@ -146,6 +153,12 @@ export default {
         message: `${message}`,
         type: `${type}`
       });
+    },
+    clearScreen() {
+      this.result = [];
+      this.searchTerm = "";
+      this.type = "";
+      this.isLoading = false;
     }
   }
 };

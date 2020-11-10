@@ -93,9 +93,12 @@ export default {
           this.result = res;
           console.log(res);
           this.isLoading = false;
+          if (res.length === 0) {
+            this.showToast(`Nenhum resultado encontrado!`, `is-warning`);
+          }
         })
         .catch(error => {
-          this.showError(error);
+          this.showToast(`Erro: ${error}`, "is-danger");
           this.isLoading = false;
         });
     },
@@ -111,17 +114,20 @@ export default {
           this.result = res;
           console.log(res);
           this.isLoading = false;
+          if (res.length === 0) {
+            this.showToast(`Nenhum resultado encontrado!`, `is-warning`);
+          }
         })
         .catch(error => {
-          this.showError(error);
+          this.showToast(`Erro: ${error}`, "is-danger");
           this.isLoading = false;
         });
     },
-    showError(message) {
+    showToast(message, type) {
       this.$buefy.toast.open({
         duration: 5000,
-        message: `Erro: ${message}`,
-        type: "is-danger"
+        message: `${message}`,
+        type: `${type}`
       });
     }
   }

@@ -9,15 +9,16 @@
         "
       >
         <b-input
-          placeholder="Search..."
+          placeholder="Termo de busca..."
           type="search"
           v-model="searchTerm"
           icon="magnify"
           required
+          @keyup.native.enter="search"
         >
         </b-input>
         <p class="control">
-          <button @click="search" class="button is-dark">Search</button>
+          <button @click="search" class="button is-dark">Pesquisar</button>
         </p>
       </b-field>
     </div>
@@ -88,22 +89,14 @@ export default {
       if (this.type === "bus") {
         this.setBus(item);
         this.$router.push({
-          name: "BusStop",
+          name: "EstimatePage",
           params: { type: this.type }
         });
       } else {
         this.setBusStop(item);
         this.$router.push({
-          name: "Bus",
+          name: "EstimatePage",
           params: { type: this.type }
-        });
-      }
-      if (
-        JSON.stringify(this.bus) !== "{}" &&
-        JSON.stringify(this.busStop) !== "{}"
-      ) {
-        this.$router.push({
-          name: "EstimatePage"
         });
       }
     },

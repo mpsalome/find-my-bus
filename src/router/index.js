@@ -23,7 +23,7 @@ const routes = [
     component: SearchPage
   },
   {
-    path: "/estimate",
+    path: "/estimate/:type",
     name: "EstimatePage",
     component: EstimatePage
   }

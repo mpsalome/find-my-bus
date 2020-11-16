@@ -10,7 +10,7 @@
           <ul>
             <li v-for="(vehicle, index) in item.vehicles" :key="index">
               <p class="bus__hour">
-                <i class="fas fa-bus icon"></i> {{ vehicle.hour }}
+                <i class="fas fa-clock icon"></i> {{ vehicle.hour }}
               </p>
             </li>
           </ul>
@@ -30,8 +30,12 @@
             item.direction === 1 ? item.mainTerminal : item.secondaryTerminal
           }}
         </strong>
-        <p v-for="(bus, index) in item.vehicles" :key="index">
-          {{ bus.hour }}
+        <p
+          class="bus__hour bus__hour--alt"
+          v-for="(bus, index) in item.vehicles"
+          :key="index"
+        >
+          <i class="fas fa-clock icon"></i> {{ bus.hour }}
         </p>
       </div>
     </div>
@@ -48,6 +52,22 @@ export default {
   components: {},
   data() {
     return {};
+  },
+  mounted() {
+    this.selectAndFormat();
+  },
+  methods: {
+    selectAndFormat() {
+      document.getElementsByClassName("bus__hour--alt").forEach(element => {
+        element.innerText = this.formatDate(element.innerText);
+      });
+    },
+    formatDate(dateString) {
+      return new Date(dateString)
+        .toLocaleTimeString()
+        .split(":", 2)
+        .join(":");
+    }
   }
 };
 </script>

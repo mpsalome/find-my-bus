@@ -1,5 +1,13 @@
 <template>
   <div class="estimate__page">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"
+    />
     <b-loading
       :is-full-page="true"
       v-model="isLoading"
@@ -37,16 +45,28 @@
         :type="type"
       />
     </div>
+    <fab
+      :position="position"
+      :bg-color="bgColor"
+      :actions="fabActions"
+      :main-icon="mainIcon"
+      @changeBus="changeBus"
+      :fixed-tooltip="true"
+      @changeBusStop="changeBusStop"
+    ></fab>
   </div>
 </template>
 
 <script>
 import * as busPromise from "bus-promise";
 import EstimateItem from "@/components/EstimateItem";
+import fab from "vue-fab";
+
 export default {
   name: "EstimatePage",
   components: {
-    EstimateItem
+    EstimateItem,
+    fab
   },
   computed: {
     bus() {
@@ -60,7 +80,22 @@ export default {
     return {
       isLoading: false,
       type: this.$route.params.type,
-      estimate: {}
+      estimate: {},
+      bgColor: "#2C3034",
+      position: "bottom-right",
+      mainIcon: "swap_horiz",
+      fabActions: [
+        {
+          name: "changeBus",
+          icon: "directions_bus",
+          tooltip: "Trocar ônibus"
+        },
+        {
+          name: "changeBusStop",
+          icon: "location_on",
+          tooltip: "Trocar linha"
+        }
+      ]
     };
   },
   created() {
@@ -121,6 +156,16 @@ export default {
         duration: 5000,
         message: `${message}`,
         type: `${type}`
+      });
+    },
+    changeBus() {
+      this.$router.push({
+        name: "Bus"
+      });
+    },
+    changeBusStop() {
+      this.$router.push({
+        name: "BusStop"
       });
     }
   }

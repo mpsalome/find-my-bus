@@ -24,9 +24,12 @@
     </div>
     <div v-else>
       <div class="list-item">
-        {{ item.displaySign }}
-        {{ item.direction === 1 ? item.mainTerminal : item.secondaryTerminal }}
-        <br />
+        <strong>
+          <i class="fas fa-bus icon"></i>{{ item.displaySign }}
+          {{
+            item.direction === 1 ? item.mainTerminal : item.secondaryTerminal
+          }}
+        </strong>
         <p v-for="(bus, index) in item.vehicles" :key="index">
           {{ bus.hour }}
         </p>

@@ -1,16 +1,15 @@
 <template>
   <div class="list-item" v-if="type === 'bus'" @click="$emit('click')">
-    <i class="fas fa-bus icon"></i>
-    <strong
-      >{{ item.displaySign }}
+    <strong>
+      <i class="fas fa-bus icon"></i>
+      {{ item.displaySign }}
       {{
         item.direction === 1 ? item.mainTerminal : item.secondaryTerminal
       }}</strong
     >
   </div>
   <div class="list-item" v-else @click="$emit('click')">
-    <i class="fas fa-map-marker-alt icon "></i>
-    <strong>{{ item.name }}</strong>
+    <strong><i class="fas fa-map-marker-alt icon "></i>{{ item.name }}</strong>
     <p>{{ item.address }}</p>
   </div>
 </template>
@@ -31,11 +30,12 @@ export default {
 <style lang="scss" scoped>
 .list-item {
   border-bottom: 1px solid #b0b0b0;
-  height: 70px;
+  height: auto;
   padding: 10px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  flex-direction: column;
   .icon {
     font-size: 20px;
   }
@@ -45,6 +45,9 @@ export default {
   &:hover {
     background-color: #b0b0b0;
     cursor: pointer;
+  }
+  strong{
+    align-self: flex-start;
   }
 }
 </style>

@@ -1,26 +1,36 @@
 <template>
-  <div class="list-item">
+  <div>
     <div v-if="type === 'bus'">
-      <div v-if="item.vehicles.length">
-        <i class="fas fa-map-marker-alt icon"></i>
-        <strong>{{ item.name }}</strong>
-        <p>Horários dos Próximos veículos:</p>
-        <ul>
-          <li v-for="(vehicle, index) in item.vehicles" :key="index">
-            <p class="bus__hour">
-              <i class="fas fa-bus icon"></i> {{ vehicle.hour }}
-            </p>
-          </li>
-        </ul>
+      <div class="list-item">
+        <strong
+          ><i class="fas fa-map-marker-alt icon"></i> {{ item.name }}</strong
+        >
+        <div v-if="item.vehicles.length">
+          <p>Horários dos Próximos veículos:</p>
+          <ul>
+            <li v-for="(vehicle, index) in item.vehicles" :key="index">
+              <p class="bus__hour">
+                <i class="fas fa-bus icon"></i> {{ vehicle.hour }}
+              </p>
+            </li>
+          </ul>
+        </div>
+        <div v-else>
+          <p>
+            Infelizmente não foi possível encontrar os horários para esse ponto.
+          </p>
+        </div>
       </div>
     </div>
     <div v-else>
-      {{ item.displaySign }}
-      {{ item.direction === 1 ? item.mainTerminal : item.secondaryTerminal }}
-      <br />
-      <p v-for="(bus, index) in item.vehicles" :key="index">
-        {{ bus.hour }}
-      </p>
+      <div class="list-item">
+        {{ item.displaySign }}
+        {{ item.direction === 1 ? item.mainTerminal : item.secondaryTerminal }}
+        <br />
+        <p v-for="(bus, index) in item.vehicles" :key="index">
+          {{ bus.hour }}
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -46,11 +56,16 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  flex-direction: column;
   .icon {
     font-size: 20px;
   }
   p {
     color: #595959;
+  }
+  i,
+  strong {
+    align-self: flex-start;
   }
   .bus__hour {
     animation: color-change 4s infinite;

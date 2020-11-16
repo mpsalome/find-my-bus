@@ -88,12 +88,12 @@ export default {
         {
           name: "changeBus",
           icon: "directions_bus",
-          tooltip: "Trocar ônibus"
+          tooltip: "Trocar linha"
         },
         {
           name: "changeBusStop",
           icon: "location_on",
-          tooltip: "Trocar linha"
+          tooltip: "Trocar ponto"
         }
       ]
     };

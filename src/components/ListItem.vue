@@ -46,7 +46,7 @@ export default {
     background-color: #b0b0b0;
     cursor: pointer;
   }
-  strong{
+  strong {
     align-self: flex-start;
   }
 }

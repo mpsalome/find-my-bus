@@ -71,7 +71,6 @@ export default {
       }
     },
     setEstimateByBus(auth) {
-      console.log("estimate by bus");
       busPromise
         .find({
           auth,
@@ -80,7 +79,6 @@ export default {
         })
         .then(res => {
           this.estimate = res;
-          console.log(res);
           this.isLoading = false;
         })
         .catch(error => {
@@ -88,7 +86,6 @@ export default {
         });
     },
     setEstimateByBusStop(auth) {
-      console.log("estimate by bus stop");
       busPromise
         .find({
           auth,
@@ -97,8 +94,6 @@ export default {
         })
         .then(res => {
           this.estimate = res;
-          console.log("olha aqui");
-          console.log(res);
           this.isLoading = false;
         })
         .catch(error => {

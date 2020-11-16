@@ -6,6 +6,17 @@
       :can-cancel="false"
     ></b-loading>
     <div v-if="type === 'bus'">
+      <div class="field">
+        <p>
+          Linha selecionada:
+          <b-tag
+            >{{ bus.displaySign }}
+            {{
+              bus.direction === 1 ? bus.mainTerminal : bus.secondaryTerminal
+            }}</b-tag
+          >
+        </p>
+      </div>
       <EstimateItem
         v-for="(item, index) in estimate.stops"
         :key="index"
@@ -14,6 +25,11 @@
       />
     </div>
     <div v-else>
+      <div class="field">
+        <p>
+          Ponto selecionado: <b-tag>{{ busStop.name }}</b-tag>
+        </p>
+      </div>
       <EstimateItem
         v-for="(item, index) in estimate.stop.lines"
         :key="index"
@@ -47,16 +63,16 @@ export default {
       estimate: {}
     };
   },
-  mounted() {
+  created() {
     this.getEstimate();
   },
   methods: {
     getEstimate() {
+      this.isLoading = true;
       if (
         JSON.stringify(this.bus) !== "{}" ||
         JSON.stringify(this.busStop) !== "{}"
       ) {
-        this.isLoading = true;
         busPromise
           .auth(`${process.env.VUE_APP_TOKEN}`)
           .then(
